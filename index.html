@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base target="_top">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ancient Rome — Companion Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --parchment: #f6efe1;
+    --parchment-deep: #ede2cc;
+    --ink: #2a2520;
+    --ink-soft: #4a3f33;
+    --terracotta: #a5482b;
+    --terracotta-deep: #7d3220;
+    --sage: #6b7e5e;
+    --gold: #b8893a;
+    --rule: #d4c4a4;
+    --highlight: #fef4d6;
+    --shadow: 0 1px 0 rgba(125, 50, 32, 0.08);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+
+  body {
+    margin: 0;
+    background: var(--parchment);
+    color: var(--ink);
+    font-family: 'Atkinson Hyperlegible', system-ui, sans-serif;
+    font-size: 18px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(184, 137, 58, 0.04) 0%, transparent 40%),
+      radial-gradient(circle at 80% 90%, rgba(165, 72, 43, 0.03) 0%, transparent 40%);
+  }
+
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: var(--ink);
+    color: var(--parchment);
+    padding: 12px 18px;
+    text-decoration: none;
+    z-index: 1000;
+    border-radius: 0 0 6px 0;
+  }
+  .skip-link:focus { left: 0; }
+
+  /* ===== TOP NAVIGATION ===== */
+  .topnav {
+    position: sticky;
+    top: 0;
+    background: rgba(246, 239, 225, 0.96);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+    z-index: 100;
+    padding: 14px 0;
+  }
+  .topnav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .topnav-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 19px;
+    color: var(--terracotta-deep);
+    letter-spacing: 0.02em;
+  }
+  .topnav-title em {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-weight: 400;
+  }
+  .topnav nav { display: flex; gap: 8px; flex-wrap: wrap; }
+  .topnav a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 15px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .topnav a:hover, .topnav a:focus {
+    background: var(--parchment-deep);
+    color: var(--terracotta-deep);
+    outline: 2px solid var(--terracotta);
+    outline-offset: 1px;
+  }
+
+  /* ===== HEADER ===== */
+  header.masthead {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 64px 28px 40px;
+    text-align: center;
+    border-bottom: 1px solid var(--rule);
+  }
+  .eyebrow {
+    font-family: 'Atkinson Hyperlegible', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: 13px;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 18px;
+  }
+  h1.title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(40px, 6vw, 64px);
+    color: var(--terracotta-deep);
+    margin: 0 0 14px;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+  }
+  h1.title em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink);
+  }
+  .subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--ink-soft);
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .ornament {
+    margin: 28px auto 0;
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    position: relative;
+  }
+  .ornament::before {
+    content: '✦';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--parchment);
+    color: var(--gold);
+    padding: 0 10px;
+    font-size: 12px;
+  }
+
+  /* ===== MAIN LAYOUT ===== */
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 28px 80px;
+  }
+
+  section.card {
+    background: #fbf6ea;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 36px 40px;
+    margin-bottom: 40px;
+    box-shadow: var(--shadow);
+    scroll-margin-top: 90px;
+  }
+
+  section.card[data-tone="warm"] {
+    background: linear-gradient(180deg, #fbf6ea 0%, #f9efd9 100%);
+    border-color: #e0cba0;
+  }
+
+  /* ===== HEADINGS ===== */
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 36px;
+    color: var(--terracotta-deep);
+    margin: 0 0 6px;
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+  }
+  h2 .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--gold);
+    font-size: 24px;
+    margin-right: 10px;
+    letter-spacing: 0.05em;
+  }
+  .section-lead {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 19px;
+    color: var(--ink-soft);
+    margin: 0 0 28px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--rule);
+  }
+  h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 24px;
+    color: var(--ink);
+    margin: 28px 0 10px;
+    line-height: 1.25;
+  }
+  h4 {
+    font-family: 'Atkinson Hyperlegible', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--terracotta-deep);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 24px 0 8px;
+  }
+
+  p { margin: 0 0 14px; }
+  p.tight { margin-bottom: 8px; }
+
+  ul, ol { margin: 8px 0 16px; padding-left: 24px; }
+  li { margin-bottom: 6px; }
+
+  strong { color: var(--terracotta-deep); font-weight: 700; }
+  em { color: var(--ink-soft); }
+
+  a.inline {
+    color: var(--terracotta);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+
+  /* ===== IF/THEN BLOCKS ===== */
+  .ifthen-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .ifthen {
+    background: var(--parchment);
+    border-left: 3px solid var(--terracotta);
+    padding: 16px 20px;
+    border-radius: 0 6px 6px 0;
+  }
+  .ifthen .if {
+    display: block;
+    font-family: 'Atkinson Hyperlegible', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--terracotta);
+    margin-bottom: 4px;
+  }
+  .ifthen .if-text {
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .ifthen .then {
+    display: block;
+    font-family: 'Atkinson Hyperlegible', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--sage);
+    margin-bottom: 4px;
+  }
+  .ifthen .then-text {
+    color: var(--ink-soft);
+  }
+
+  /* ===== KEY VALUE PAIRS / SITE MAP ===== */
+  .sitemap-row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 24px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .sitemap-row:last-child { border-bottom: none; }
+  .sitemap-row dt {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 21px;
+    color: var(--terracotta-deep);
+    margin: 0;
+  }
+  .sitemap-row dd {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+  .sitemap-row .quick-tip {
+    margin-top: 8px;
+    font-size: 15px;
+    color: var(--sage);
+    font-style: italic;
+  }
+
+  @media (max-width: 640px) {
+    .sitemap-row { grid-template-columns: 1fr; gap: 6px; }
+  }
+
+  /* ===== VISUAL DESCRIPTIONS ===== */
+  .visual-desc {
+    background: var(--parchment);
+    border: 1px dashed var(--rule);
+    padding: 22px 26px;
+    border-radius: 6px;
+    margin: 16px 0 24px;
+  }
+  .visual-desc h4 {
+    margin-top: 0;
+    color: var(--gold);
+  }
+  .visual-desc .what-it-shows {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  /* ===== TIMELINE ===== */
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+    margin: 16px 0 8px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--gold), var(--rule));
+  }
+  .timeline-event {
+    position: relative;
+    padding: 6px 0 12px;
+  }
+  .timeline-event::before {
+    content: '';
+    position: absolute;
+    left: -32px;
+    top: 12px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--parchment);
+    border: 2px solid var(--terracotta);
+  }
+  .timeline-date {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--terracotta-deep);
+    font-size: 18px;
+    margin-right: 10px;
+  }
+
+  /* ===== STORY SECTIONS (Three Stories) ===== */
+  .story {
+    border-left: 3px solid var(--gold);
+    padding: 4px 0 4px 22px;
+    margin: 18px 0 24px;
+  }
+  .story-label {
+    font-family: 'Atkinson Hyperlegible', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--gold);
+  }
+  .story h3 { margin-top: 4px; }
+  .story-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 19px;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+  }
+  .takeaway {
+    margin-top: 14px;
+    padding: 14px 18px;
+    background: var(--highlight);
+    border-radius: 4px;
+    font-weight: 700;
+    color: var(--ink);
+    border-left: 3px solid var(--gold);
+  }
+  .takeaway::before {
+    content: 'The big idea: ';
+    color: var(--terracotta-deep);
+    font-style: italic;
+    font-weight: 400;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  /* ===== COMPARE TABLE ===== */
+  .compare {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 18px 0 8px;
+    font-size: 16px;
+  }
+  .compare caption {
+    text-align: left;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 17px;
+    padding-bottom: 10px;
+  }
+  .compare th, .compare td {
+    text-align: left;
+    padding: 12px 14px;
+    vertical-align: top;
+    border: 1px solid var(--rule);
+  }
+  .compare th {
+    background: var(--parchment-deep);
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--terracotta-deep);
+  }
+  .compare th[scope="row"] {
+    background: var(--parchment);
+    width: 22%;
+  }
+
+  /* ===== VOCABULARY ===== */
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px;
+    margin-top: 16px;
+  }
+  .vocab-card {
+    background: var(--parchment);
+    padding: 14px 18px;
+    border-radius: 5px;
+    border-top: 2px solid var(--terracotta);
+  }
+  .vocab-word {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: 19px;
+    color: var(--terracotta-deep);
+    display: block;
+    margin-bottom: 2px;
+  }
+  .vocab-pronounce {
+    color: var(--ink-soft);
+    font-style: italic;
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+  .vocab-def {
+    font-size: 16px;
+    color: var(--ink);
+  }
+
+  /* ===== SENTENCE STEMS ===== */
+  .stem-list {
+    background: var(--parchment);
+    padding: 18px 24px;
+    border-radius: 6px;
+    margin: 12px 0;
+  }
+  .stem-list ul { padding-left: 18px; margin: 6px 0; }
+  .stem-list li {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink-soft);
+    margin-bottom: 10px;
+  }
+
+  /* ===== ORGANIZER TEMPLATES ===== */
+  .organizer {
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 22px 24px;
+    margin: 18px 0;
+    background: #fffbf0;
+  }
+  .organizer-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 22px;
+    color: var(--terracotta-deep);
+    margin: 0 0 8px;
+  }
+  .write-line {
+    border-bottom: 1px solid var(--rule);
+    height: 26px;
+    margin: 6px 0;
+  }
+  .write-box {
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    min-height: 80px;
+    padding: 8px 10px;
+    margin: 6px 0 14px;
+    background: rgba(255, 251, 240, 0.6);
+  }
+  .organizer-prompt {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--ink);
+    margin: 14px 0 4px;
+  }
+
+  /* ===== SELF-CHECK ===== */
+  .check-q {
+    background: var(--parchment);
+    padding: 16px 20px;
+    border-radius: 5px;
+    margin-bottom: 12px;
+    border-left: 3px solid var(--sage);
+  }
+  .check-q-prompt {
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+  .check-q-hint {
+    font-size: 15px;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  /* ===== CALLOUT QUOTE / BIG IDEA ===== */
+  .pullquote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    line-height: 1.3;
+    font-style: italic;
+    color: var(--terracotta-deep);
+    text-align: center;
+    padding: 20px 30px;
+    border-top: 1px solid var(--gold);
+    border-bottom: 1px solid var(--gold);
+    margin: 20px 0;
+  }
+  .pullquote .source {
+    display: block;
+    font-style: normal;
+    font-family: 'Atkinson Hyperlegible', sans-serif;
+    font-size: 14px;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-top: 14px;
+    font-weight: 700;
+  }
+
+  /* ===== FOOTER ===== */
+  footer.colophon {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 28px 60px;
+    border-top: 1px solid var(--rule);
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 14px;
+  }
+  footer.colophon p { margin: 6px 0; }
+  footer .ornament { margin: 0 auto 24px; }
+
+  /* ===== PRINT STYLES ===== */
+  @media print {
+    .topnav, .skip-link { display: none; }
+    body { background: white; font-size: 12pt; }
+    section.card { break-inside: avoid; box-shadow: none; border: 1px solid #ccc; }
+    h2 { color: #000; }
+    .organizer { break-inside: avoid; }
+    a { color: #000; text-decoration: none; }
+    .write-line { border-color: #999; }
+  }
+
+  /* ===== FOCUS / ACCESSIBILITY ===== */
+  *:focus-visible {
+    outline: 3px solid var(--terracotta);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<div class="topnav" role="navigation" aria-label="Section navigation">
+  <div class="topnav-inner">
+    <div class="topnav-title">Ancient Rome <em>· Companion Guide</em></div>
+    <nav>
+      <a href="#how-to-use">How to Use</a>
+      <a href="#unstuck">Get Unstuck</a>
+      <a href="#sitemap">Site Map</a>
+      <a href="#visuals">Pictures &amp; Maps</a>
+      <a href="#big-idea">Big Idea</a>
+      <a href="#three-stories">Three Stories</a>
+      <a href="#vocabulary">Vocabulary</a>
+      <a href="#stems">Sentence Starters</a>
+      <a href="#organizers">Note Pages</a>
+      <a href="#self-check">Self-Check</a>
+    </nav>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="eyebrow">Unit 4 · Companion Guide</div>
+  <h1 class="title">Ancient Rome<br><em>A Guide to the Site</em></h1>
+  <p class="subtitle">Open this beside the Rome website. Use any part you need, in any order.</p>
+  <div class="ornament" aria-hidden="true"></div>
+</header>
+
+<main id="main-content">
+
+  <!-- ============== HOW TO USE ============== -->
+  <section class="card" id="how-to-use" aria-labelledby="how-to-use-h">
+    <h2 id="how-to-use-h"><span class="num">I.</span>How to Use This Guide</h2>
+    <p class="section-lead">This is a tool, not an assignment. Open it any time you need help.</p>
+
+    <p>The Rome website is your main place to learn. This guide sits beside the site to help when something is hard to read, hard to see, or hard to start.</p>
+
+    <h4>You can use it to:</h4>
+    <ul>
+      <li>Read a shorter version of what's on the site</li>
+      <li>Find out what a hard word means</li>
+      <li>See what a map or picture <em>shows</em>, in words</li>
+      <li>Get a sentence starter when writing feels stuck</li>
+      <li>Take a quick break and come back ready</li>
+    </ul>
+
+    <h4>How to read it</h4>
+    <p>Use the menu at the top to jump to any section. You don't have to read it in order. You don't have to read all of it. Use what helps.</p>
+
+    <p class="tight"><strong>If you use a screen reader or headphones:</strong> this guide is built so the reader will pick up every word, including the parts that describe pictures and maps from the website.</p>
+  </section>
+
+  <!-- ============== GET UNSTUCK ============== -->
+  <section class="card" data-tone="warm" id="unstuck" aria-labelledby="unstuck-h">
+    <h2 id="unstuck-h"><span class="num">II.</span>Get Unstuck</h2>
+    <p class="section-lead">When something feels hard, try one of these moves first.</p>
+
+    <div class="ifthen-grid">
+      <div class="ifthen">
+        <span class="if">If</span>
+        <p class="if-text">A reading on the site looks too long</p>
+        <span class="then">Then</span>
+        <p class="then-text">Open the <a class="inline" href="#three-stories">Three Stories</a> section here. It says the same idea in a shorter way.</p>
+      </div>
+
+      <div class="ifthen">
+        <span class="if">If</span>
+        <p class="if-text">You see a word you don't know</p>
+        <span class="then">Then</span>
+        <p class="then-text">Check the <a class="inline" href="#vocabulary">Vocabulary</a> section. The hard words have plain meanings.</p>
+      </div>
+
+      <div class="ifthen">
+        <span class="if">If</span>
+        <p class="if-text">A map or picture won't read out loud</p>
+        <span class="then">Then</span>
+        <p class="then-text">Look at <a class="inline" href="#visuals">Pictures &amp; Maps</a>. Every picture from the site is described in words.</p>
+      </div>
+
+      <div class="ifthen">
+        <span class="if">If</span>
+        <p class="if-text">You can't think how to start a sentence</p>
+        <span class="then">Then</span>
+        <p class="then-text">Use a <a class="inline" href="#stems">Sentence Starter</a>. Pick one and finish it your way.</p>
+      </div>
+
+      <div class="ifthen">
+        <span class="if">If</span>
+        <p class="if-text">Your brain feels too busy or too loud</p>
+        <span class="then">Then</span>
+        <p class="then-text">Take a 2-minute quiet break. Put your headphones in. Come back when you're ready.</p>
+      </div>
+
+      <div class="ifthen">
+        <span class="if">If</span>
+        <p class="if-text">You don't know what to do next on the site</p>
+        <span class="then">Then</span>
+        <p class="then-text">Look at the <a class="inline" href="#sitemap">Site Map</a>. It tells you what each part of the site is for.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== SITE MAP ============== -->
+  <section class="card" id="sitemap" aria-labelledby="sitemap-h">
+    <h2 id="sitemap-h"><span class="num">III.</span>Site Map</h2>
+    <p class="section-lead">What each part of the Rome website is for, and how to use it.</p>
+
+    <dl>
+      <div class="sitemap-row">
+        <dt>Home</dt>
+        <dd>
+          The first page. It shows the big question for the unit: <em>How do political institutions impact the advancement of civilizations?</em> ("Political institutions" means kinds of government.) Read this whenever you need to remember what the unit is about.
+        </dd>
+      </div>
+
+      <div class="sitemap-row">
+        <dt>Standards</dt>
+        <dd>
+          The list of what you are learning. You don't have to memorize it. It just shows what the unit is built around. The three main ones are about (1) types of government, (2) the role of conflict, and (3) looking at problems through different subjects.
+        </dd>
+      </div>
+
+      <div class="sitemap-row">
+        <dt>Political Institutions</dt>
+        <dd>
+          A side-by-side look at <strong>monarchy</strong>, <strong>republic</strong>, and <strong>empire</strong>. This is the heart of the unit. Use this any time you need to remember how Roman government changed.
+          <div class="quick-tip">Quick tip: there's a clean comparison in this guide too — see <a class="inline" href="#three-stories">Three Stories</a>.</div>
+        </dd>
+      </div>
+
+      <div class="sitemap-row">
+        <dt>Conflict &amp; Expansion</dt>
+        <dd>
+          About wars Rome fought and the land Rome took. Includes the Punic Wars (Rome vs. Carthage) and the troubles inside Rome that came with growing too big.
+        </dd>
+      </div>
+
+      <div class="sitemap-row">
+        <dt>Inquiry Lab</dt>
+        <dd>
+          A place to look at one Roman problem through four subjects: <strong>history</strong>, <strong>civics</strong>, <strong>economics</strong>, and <strong>geography</strong>. Each subject is its own tab. Click one tab at a time so it doesn't feel like a lot at once.
+        </dd>
+      </div>
+
+      <div class="sitemap-row">
+        <dt>Map of Rome</dt>
+        <dd>
+          A picture of where Rome was and how it grew. The map can move and change to show different time periods. <strong>If your screen reader can't read the map, see "Pictures &amp; Maps" in this guide.</strong>
+        </dd>
+      </div>
+
+      <div class="sitemap-row">
+        <dt>Timeline</dt>
+        <dd>
+          A line that shows when things happened in order. You can click filters to show only certain kinds of events. <strong>The full timeline is also written out in this guide</strong> — see "Pictures &amp; Maps."
+        </dd>
+      </div>
+
+      <div class="sitemap-row">
+        <dt>Ask Socrates (AI Chat)</dt>
+        <dd>
+          A chat that asks you questions to help you think. It's not a test. There are no wrong answers. Type or speak your idea and it will ask another question to help you go deeper. Stop any time.
+          <div class="quick-tip">Quick tip: there's a Socrates note page in this guide so you can write down the best ideas from your chat.</div>
+        </dd>
+      </div>
+
+      <div class="sitemap-row">
+        <dt>Vocabulary Cards</dt>
+        <dd>
+          Flip cards for the unit's important words. Practice as long as you want. The same words are also in this guide with plainer meanings.
+        </dd>
+      </div>
+
+      <div class="sitemap-row">
+        <dt>Quiz</dt>
+        <dd>
+          A short quiz tied to the standards. Take it when you're ready, not before. Use the <a class="inline" href="#self-check">Self-Check</a> in this guide first if you want to warm up.
+        </dd>
+      </div>
+    </dl>
+  </section>
+
+  <!-- ============== VISUAL DESCRIPTIONS ============== -->
+  <section class="card" id="visuals" aria-labelledby="visuals-h">
+    <h2 id="visuals-h"><span class="num">IV.</span>Pictures &amp; Maps</h2>
+    <p class="section-lead">The website has maps, charts, and pictures. Some of them won't read out loud well. Here is what each one shows, in words.</p>
+
+    <!-- Map of Rome's Expansion -->
+    <h3>The Map of Rome's Growth</h3>
+    <div class="visual-desc">
+      <h4>What this is</h4>
+      <p class="what-it-shows">An interactive map. It shows how Rome grew from one small city into a giant empire. You can change the year on the map to see Rome at different times.</p>
+
+      <p>Here's what the map shows, step by step in time:</p>
+
+      <h4>Around 753 BCE — The beginning</h4>
+      <p>Rome is just one small city. It sits next to the Tiber River, in the middle of the Italian peninsula (the boot-shaped piece of land that sticks out into the Mediterranean Sea). Rome controls only the land right around the city.</p>
+
+      <h4>By 270 BCE — All of Italy</h4>
+      <p>Rome now controls the whole Italian peninsula. It took hundreds of years of fighting and making deals with other Italian peoples.</p>
+
+      <h4>By 146 BCE — Across the sea</h4>
+      <p>After the Punic Wars against Carthage (a city in North Africa), Rome controls big new pieces of land: the islands of Sicily, Sardinia, and Corsica. It also takes most of Spain, parts of North Africa, and Greece.</p>
+
+      <h4>By 44 BCE — Caesar's time</h4>
+      <p>Rome controls almost the whole edge of the Mediterranean Sea. Julius Caesar has just added Gaul (modern France). Rome also controls parts of the Middle East.</p>
+
+      <h4>By 117 CE — The largest size</h4>
+      <p>Rome is now an empire and reaches its biggest size ever. It stretches from Britain in the north to North Africa in the south, and from Spain in the west all the way to parts of modern Iraq in the east. Rome controls the entire Mediterranean Sea — Romans called it "Our Sea."</p>
+
+      <h4>What you should notice</h4>
+      <ul>
+        <li>Rome started small and grew slowly at first.</li>
+        <li>The biggest growth came after the Punic Wars and during the early empire.</li>
+        <li>The Mediterranean Sea is in the middle of the empire. Rome used the sea like a giant highway.</li>
+      </ul>
+    </div>
+
+    <!-- Timeline -->
+    <h3>The Timeline</h3>
+    <div class="visual-desc">
+      <h4>What this is</h4>
+      <p class="what-it-shows">A line that goes from the oldest events on the left to the newest events on the right. It shows the most important things that happened in Rome.</p>
+
+      <div class="timeline" role="list">
+        <div class="timeline-event" role="listitem"><span class="timeline-date">753 BCE</span>Rome is founded. The legend says two brothers, Romulus and Remus, started the city.</div>
+        <div class="timeline-event" role="listitem"><span class="timeline-date">509 BCE</span>The last king is kicked out. Rome becomes a <strong>republic</strong>. Citizens now elect their leaders.</div>
+        <div class="timeline-event" role="listitem"><span class="timeline-date">451–450 BCE</span>The <strong>Twelve Tables</strong> are written. These are Rome's first written laws. They are posted in public so everyone can see them.</div>
+        <div class="timeline-event" role="listitem"><span class="timeline-date">264–146 BCE</span>The <strong>Punic Wars</strong>. Three wars between Rome and Carthage, fought over land and trade. Rome wins all three.</div>
+        <div class="timeline-event" role="listitem"><span class="timeline-date">133 BCE</span>The <strong>Gracchi brothers</strong> try to help poor Romans. Both are killed. Rome's troubles inside the city are getting worse.</div>
+        <div class="timeline-event" role="listitem"><span class="timeline-date">88 BCE</span><strong>Sulla</strong> marches his army into Rome. This had never happened before. It shows the army is now stronger than the government.</div>
+        <div class="timeline-event" role="listitem"><span class="timeline-date">60 BCE</span>The <strong>First Triumvirate</strong>. Three powerful men — Caesar, Pompey, and Crassus — share control of Rome.</div>
+        <div class="timeline-event" role="listitem"><span class="timeline-date">49 BCE</span><strong>Julius Caesar crosses the Rubicon</strong> river with his army. This starts a civil war (Romans fighting Romans).</div>
+        <div class="timeline-event" role="listitem"><span class="timeline-date">44 BCE</span>Caesar is killed by a group of senators on March 15 (the "Ides of March"). They were afraid he would become a king.</div>
+        <div class="timeline-event" role="listitem"><span class="timeline-date">27 BCE</span><strong>Augustus</strong> (Caesar's adopted son) becomes Rome's first emperor. The republic is over. The empire begins.</div>
+        <div class="timeline-event" role="listitem"><span class="timeline-date">27 BCE – 180 CE</span>The <strong>Pax Romana</strong> ("Roman Peace"). About 200 years of mostly peaceful, stable empire.</div>
+        <div class="timeline-event" role="listitem"><span class="timeline-date">476 CE</span>The last emperor of the Western Roman Empire is removed. The western half of the empire is over. The eastern half (called Byzantium) keeps going for another 1,000 years.</div>
+      </div>
+    </div>
+
+    <!-- Comparison chart -->
+    <h3>The Three Governments Chart</h3>
+    <div class="visual-desc">
+      <h4>What this is</h4>
+      <p class="what-it-shows">A chart that compares Rome's three kinds of government side-by-side. Same chart in words below.</p>
+
+      <table class="compare">
+        <caption>How the three Roman governments compare</caption>
+        <thead>
+          <tr>
+            <th scope="col">Question</th>
+            <th scope="col">Monarchy</th>
+            <th scope="col">Republic</th>
+            <th scope="col">Empire</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Who has the power?</th>
+            <td>One king</td>
+            <td>Elected leaders + the Senate</td>
+            <td>One emperor</td>
+          </tr>
+          <tr>
+            <th scope="row">Do regular people get a say?</th>
+            <td>Almost no</td>
+            <td>Yes (through assemblies and tribunes), but the rich had more say</td>
+            <td>Less and less over time</td>
+          </tr>
+          <tr>
+            <th scope="row">When?</th>
+            <td>About 753–509 BCE</td>
+            <td>About 509–27 BCE</td>
+            <td>27 BCE onward (West ends 476 CE)</td>
+          </tr>
+          <tr>
+            <th scope="row">Why did it end?</th>
+            <td>The last king was unfair. People kicked him out.</td>
+            <td>Too much fighting between rich and poor, and between army leaders. Civil wars.</td>
+            <td>Money problems, attacks from outside, and weak emperors.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Inquiry tabs -->
+    <h3>The Inquiry Lab Tabs</h3>
+    <div class="visual-desc">
+      <h4>What this is</h4>
+      <p class="what-it-shows">Four buttons (tabs) on the Inquiry Lab page. Each tab looks at the same Roman problem from a different subject.</p>
+      <ul>
+        <li><strong>History tab:</strong> What happened, and in what order? What caused it?</li>
+        <li><strong>Civics tab:</strong> What did the government do? What did citizens do?</li>
+        <li><strong>Economics tab:</strong> What about money, jobs, food, and trade?</li>
+        <li><strong>Geography tab:</strong> Where did this happen? How did the land or sea matter?</li>
+      </ul>
+      <p>Click one tab at a time. Read it. Then move to the next.</p>
+    </div>
+
+    <!-- Lesson banners -->
+    <h3>Lesson Banner Pictures</h3>
+    <div class="visual-desc">
+      <h4>What this is</h4>
+      <p class="what-it-shows">Each daily lesson has a big picture at the top called a "banner." Here is what each one shows in words. (You may not need this if your screen reader picks up the alt text — but it's here just in case.)</p>
+      <ul>
+        <li><strong>Geography of Rome:</strong> A map of Italy showing the boot shape, with Rome marked next to the Tiber River.</li>
+        <li><strong>Founding of Rome:</strong> An old painting or statue of Romulus and Remus, the legendary brothers.</li>
+        <li><strong>The Roman Republic:</strong> Roman senators in togas (long white robes) standing in a marble building.</li>
+        <li><strong>Twelve Tables:</strong> Stone or bronze tablets with Latin writing carved into them.</li>
+        <li><strong>Punic Wars:</strong> Roman soldiers, war ships, or a battle scene with Carthage.</li>
+        <li><strong>Roman Reforms:</strong> A scene of Roman citizens — often the Gracchi brothers giving a speech.</li>
+        <li><strong>Caesar &amp; the End of the Republic:</strong> A bust (statue head) of Julius Caesar, or the famous painting of his death.</li>
+        <li><strong>Rise of the Empire:</strong> A statue of Augustus, the first emperor.</li>
+        <li><strong>Pax Romana:</strong> Roman roads, aqueducts, or peaceful city scenes.</li>
+        <li><strong>Fall of Rome:</strong> A picture of ruined buildings or invaders entering the city.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============== BIG IDEA ============== -->
+  <section class="card" id="big-idea" aria-labelledby="big-idea-h">
+    <h2 id="big-idea-h"><span class="num">V.</span>The Big Idea</h2>
+    <p class="section-lead">Everything in this unit comes back to one question.</p>
+
+    <div class="pullquote">
+      How do political institutions<br>impact the advancement of civilizations?
+      <span class="source">The Compelling Question</span>
+    </div>
+
+    <h3>What that question really means</h3>
+    <p>"Political institutions" is a fancy way to say <strong>kinds of government</strong> — like a kingdom, a republic, or an empire.</p>
+    <p>"Advancement of civilizations" means <strong>how a society grows and changes</strong> — how it gets bigger, stronger, or weaker.</p>
+    <p>So the question is really:</p>
+
+    <div class="pullquote">
+      Does the kind of government a place has<br>change how that place grows?
+    </div>
+
+    <h3>The unit's answer (so far)</h3>
+    <p>Rome had three kinds of government: monarchy, republic, and empire. Each one fixed some old problems but also made new problems. None of them was perfect. Rome kept changing because each system stopped working over time.</p>
+    <p>That's the main idea. If you can explain that idea, you understand the unit.</p>
+  </section>
+
+  <!-- ============== THREE STORIES ============== -->
+  <section class="card" id="three-stories" aria-labelledby="stories-h">
+    <h2 id="stories-h"><span class="num">VI.</span>The Three Stories of Rome</h2>
+    <p class="section-lead">Rome's whole history can be told as three short stories. Read one. Or all three.</p>
+
+    <article class="story">
+      <div class="story-label">Story One</div>
+      <h3>From One King to Many Voices (the Republic)</h3>
+      <p class="story-tagline">"We don't want a king. We want laws."</p>
+
+      <p>Rome started as a small city ruled by kings. The last king, Tarquin, was cruel. In 509 BCE, the Romans pushed him out. They said: never again will one person have all the power.</p>
+
+      <p>So they built a new system called a <strong>republic</strong>. In a republic, citizens vote for leaders. Two leaders called <strong>consuls</strong> ran the government. They could only serve for one year. The <strong>Senate</strong>, a group of important men, gave them advice. There were also <strong>assemblies</strong>, where regular citizens could vote on laws.</p>
+
+      <p>But there was a problem. Two groups of people lived in Rome: the <strong>patricians</strong> (rich families) and the <strong>plebeians</strong> (everyone else). The patricians had almost all the power. The plebeians fought for fairness.</p>
+
+      <p>Over many years, the plebeians won big things:</p>
+      <ul>
+        <li>The <strong>Twelve Tables</strong>: Rome's first written laws, posted in public, so the rich couldn't make them up as they went.</li>
+        <li>The <strong>Tribunes of the Plebs</strong>: special leaders who could say "no" (called a <strong>veto</strong>) to laws that hurt regular people.</li>
+        <li>Step by step, plebeians got more rights to hold office and vote.</li>
+      </ul>
+
+      <div class="takeaway">The republic solved the problem of one cruel king. But it created a new problem — fights between rich and poor that never really went away.</div>
+    </article>
+
+    <article class="story">
+      <div class="story-label">Story Two</div>
+      <h3>Too Big, Too Fast (the Republic Breaks)</h3>
+      <p class="story-tagline">"Winning made everything worse."</p>
+
+      <p>Rome kept growing. It fought three big wars against Carthage, called the <strong>Punic Wars</strong> (264–146 BCE). Rome won them all. After that, Rome controlled most of the lands around the Mediterranean Sea.</p>
+
+      <p>Winning sounds good. But it caused new problems:</p>
+      <ul>
+        <li>Rich Romans got <strong>much richer</strong>. They bought up huge farms (called <strong>latifundia</strong>) using enslaved people captured in war.</li>
+        <li>Regular Roman farmers couldn't compete. They lost their land. Many moved to the city of Rome, poor and angry.</li>
+        <li>Rome was now ruling lands far away. The republic was built for one city. It wasn't built to run an empire.</li>
+      </ul>
+
+      <p>Some leaders tried to fix things. The <strong>Gracchi brothers</strong> tried to give land back to poor Romans. Both brothers were killed by their enemies in the Senate.</p>
+
+      <p>Then strong generals took over. <strong>Sulla</strong> marched his army <em>into Rome itself</em> — Romans had never done that before. <strong>Julius Caesar</strong> did it next. He crossed the Rubicon river in 49 BCE and started a civil war (Romans fighting Romans). Caesar won. He took total control.</p>
+
+      <p>In 44 BCE, senators killed Caesar because they were afraid he was becoming a king. But killing him didn't bring back the republic. Another civil war started.</p>
+
+      <div class="takeaway">The republic worked for a small Rome but couldn't handle a huge Rome. Growing too big, too fast broke the system.</div>
+    </article>
+
+    <article class="story">
+      <div class="story-label">Story Three</div>
+      <h3>One Man Again (the Empire)</h3>
+      <p class="story-tagline">"Peace, but at a price."</p>
+
+      <p>After Caesar's death, his adopted son <strong>Octavian</strong> won the next civil war. In 27 BCE, the Senate gave him a new name: <strong>Augustus</strong>. He became Rome's first emperor.</p>
+
+      <p>Augustus was clever. He kept the Senate around. He kept calling himself "First Citizen," not "King." But really, he had all the power. The republic was over.</p>
+
+      <p>For the next 200 years, Rome was mostly peaceful. Historians call this time the <strong>Pax Romana</strong> ("Roman Peace"). During the Pax Romana:</p>
+      <ul>
+        <li>Trade grew. Rome built thousands of miles of roads.</li>
+        <li>Cities grew. Many had aqueducts (stone water channels), public baths, and theaters.</li>
+        <li>Most of the empire was safe to travel through.</li>
+      </ul>
+
+      <p>But there was a price. Citizens had less and less say in the government. Everything depended on having a good emperor — and not all of them were good.</p>
+
+      <p>Over time, the empire ran into big problems: not enough money, attacks from outside groups (like the Germanic tribes), and weak emperors. In 476 CE, the western half of the empire fell. The eastern half kept going for another thousand years.</p>
+
+      <div class="takeaway">The empire fixed the chaos of the late republic. But it traded freedom for safety, and depended on whoever was in charge.</div>
+    </article>
+  </section>
+
+  <!-- ============== VOCABULARY ============== -->
+  <section class="card" id="vocabulary" aria-labelledby="vocab-h">
+    <h2 id="vocab-h"><span class="num">VII.</span>Vocabulary</h2>
+    <p class="section-lead">The words that show up most in this unit, said in plain language.</p>
+
+    <h3>Kinds of Government</h3>
+    <div class="vocab-grid">
+      <div class="vocab-card">
+        <span class="vocab-word">monarchy</span>
+        <div class="vocab-pronounce">MON-ar-kee</div>
+        <div class="vocab-def">A government ruled by one person, usually a king or queen.</div>
+      </div>
+      <div class="vocab-card">
+        <span class="vocab-word">republic</span>
+        <div class="vocab-pronounce">ree-PUB-lik</div>
+        <div class="vocab-def">A government where people vote for leaders to represent them.</div>
+      </div>
+      <div class="vocab-card">
+        <span class="vocab-word">empire</span>
+        <div class="vocab-pronounce">EM-pire</div>
+        <div class="vocab-def">A big group of lands all ruled by one government, usually with one strong leader called an emperor.</div>
+      </div>
+      <div class="vocab-card">
+        <span class="vocab-word">dictator</span>
+        <div class="vocab-pronounce">DIK-tay-tor</div>
+        <div class="vocab-def">A leader with all the power. In early Rome, a dictator was chosen for a short time during emergencies.</div>
+      </div>
+    </div>
+
+    <h3>Roman People &amp; Groups</h3>
+    <div class="vocab-grid">
+      <div class="vocab-card">
+        <span class="vocab-word">citizen</span>
+        <div class="vocab-pronounce">SIT-i-zen</div>
+        <div class="vocab-def">An official member of Rome with rights, like the right to vote.</div>
+      </div>
+      <div class="vocab-card">
+        <span class="vocab-word">patrician</span>
+        <div class="vocab-pronounce">puh-TRISH-un</div>
+        <div class="vocab-def">A member of one of Rome's rich, old, powerful families.</div>
+      </div>
+      <div class="vocab-card">
+        <span class="vocab-word">plebeian</span>
+        <div class="vocab-pronounce">pleh-BEE-un</div>
+        <div class="vocab-def">A regular Roman — a farmer, worker, or merchant. Not from a rich family.</div>
+      </div>
+      <div class="vocab-card">
+        <span class="vocab-word">magistrate</span>
+        <div class="vocab-pronounce">MAJ-i-strate</div>
+        <div class="vocab-def">A government official with a specific job, like a judge or money manager.</div>
+      </div>
+    </div>
+
+    <h3>How the Republic Worked</h3>
+    <div class="vocab-grid">
+      <div class="vocab-card">
+        <span class="vocab-word">Senate</span>
+        <div class="vocab-pronounce">SEN-it</div>
+        <div class="vocab-def">A group of about 300 important Romans who advised leaders and helped run the government.</div>
+      </div>
+      <div class="vocab-card">
+        <span class="vocab-word">consul</span>
+        <div class="vocab-pronounce">KON-sul</div>
+        <div class="vocab-def">One of two top leaders of the Roman Republic. They served for one year only.</div>
+      </div>
+      <div class="vocab-card">
+        <span class="vocab-word">tribune</span>
+        <div class="vocab-pronounce">TRIB-yoon</div>
+        <div class="vocab-def">A leader chosen to protect plebeians. A tribune could say "no" (veto) to unfair laws.</div>
+      </div>
+      <div class="vocab-card">
+        <span class="vocab-word">assembly</span>
+        <div class="vocab-pronounce">uh-SEM-blee</div>
+        <div class="vocab-def">A meeting where citizens voted on laws and leaders.</div>
+      </div>
+      <div class="vocab-card">
+        <span class="vocab-word">veto</span>
+        <div class="vocab-pronounce">VEE-toh</div>
+        <div class="vocab-def">The power to say "no" to a law and stop it.</div>
+      </div>
+      <div class="vocab-card">
+        <span class="vocab-word">checks and balances</span>
+        <div class="vocab-pronounce">CHEKS and BAL-en-sez</div>
+        <div class="vocab-def">A system where different parts of government keep each other from getting too powerful.</div>
+      </div>
+    </div>
+
+    <h3>Laws &amp; Reforms</h3>
+    <div class="vocab-grid">
+      <div class="vocab-card">
+        <span class="vocab-word">Twelve Tables</span>
+        <div class="vocab-pronounce">TWELV TAY-bulz</div>
+        <div class="vocab-def">Rome's first written laws. They were posted in public so everyone could see them.</div>
+      </div>
+      <div class="vocab-card">
+        <span class="vocab-word">reform</span>
+        <div class="vocab-pronounce">ree-FORM</div>
+        <div class="vocab-def">A change made to fix a problem or make something more fair.</div>
+      </div>
+    </div>
+
+    <h3>Wars, Trouble, &amp; Big Names</h3>
+    <div class="vocab-grid">
+      <div class="vocab-card">
+        <span class="vocab-word">Punic Wars</span>
+        <div class="vocab-pronounce">PYOO-nik WARZ</div>
+        <div class="vocab-def">Three wars between Rome and Carthage (264–146 BCE). Rome won all three.</div>
+      </div>
+      <div class="vocab-card">
+        <span class="vocab-word">Carthage</span>
+        <div class="vocab-pronounce">KAR-thij</div>
+        <div class="vocab-def">A powerful trading city in North Africa. Rome's biggest rival.</div>
+      </div>
+      <div class="vocab-card">
+        <span class="vocab-word">Hannibal</span>
+        <div class="vocab-pronounce">HAN-i-bul</div>
+        <div class="vocab-def">A general from Carthage. He famously crossed the Alps mountains with elephants to attack Rome.</div>
+      </div>
+      <div class="vocab-card">
+        <span class="vocab-word">province</span>
+        <div class="vocab-pronounce">PRAH-vins</div>
+        <div class="vocab-def">A piece of land Rome controlled but that wasn't part of Rome itself.</div>
+      </div>
+      <div class="vocab-card">
+        <span class="vocab-word">latifundia</span>
+        <div class="vocab-pronounce">lat-i-FUN-dee-uh</div>
+        <div class="vocab-def">Huge farms owned by rich Romans, worked by enslaved people.</div>
+      </div>
+      <div class="vocab-card">
+        <span class="vocab-word">Gracchi brothers</span>
+        <div class="vocab-pronounce">GRAH-kee</div>
+        <div class="vocab-def">Two brothers, Tiberius and Gaius, who tried to help poor Romans. Both were killed for it.</div>
+      </div>
+      <div class="vocab-card">
+        <span class="vocab-word">Julius Caesar</span>
+        <div class="vocab-pronounce">JOO-lee-us SEE-zer</div>
+        <div class="vocab-def">A famous Roman general who took total power. Killed by senators in 44 BCE.</div>
+      </div>
+      <div class="vocab-card">
+        <span class="vocab-word">civil war</span>
+        <div class="vocab-pronounce">SIV-il WAR</div>
+        <div class="vocab-def">A war fought between people of the same country.</div>
+      </div>
+      <div class="vocab-card">
+        <span class="vocab-word">Augustus</span>
+        <div class="vocab-pronounce">aw-GUS-tus</div>
+        <div class="vocab-def">Caesar's adopted son. Rome's first emperor. (His original name was Octavian.)</div>
+      </div>
+      <div class="vocab-card">
+        <span class="vocab-word">Pax Romana</span>
+        <div class="vocab-pronounce">PAKS roh-MAH-nuh</div>
+        <div class="vocab-def">"Roman Peace." About 200 years of mostly peace and stable empire.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== SENTENCE STEMS ============== -->
+  <section class="card" id="stems" aria-labelledby="stems-h">
+    <h2 id="stems-h"><span class="num">VIII.</span>Sentence Starters</h2>
+    <p class="section-lead">When writing feels hard, pick a starter and finish it your own way.</p>
+
+    <h3>For comparing the three governments</h3>
+    <div class="stem-list">
+      <ul>
+        <li>One thing that was the same about ___ and ___ is ___.</li>
+        <li>The biggest difference between ___ and ___ was ___.</li>
+        <li>In a monarchy, only ___ had power. In a republic, ___ also had power.</li>
+        <li>The republic ended because ___.</li>
+        <li>The empire was different from the republic because ___.</li>
+      </ul>
+    </div>
+
+    <h3>For talking about conflict</h3>
+    <div class="stem-list">
+      <ul>
+        <li>One conflict that changed Rome was ___.</li>
+        <li>Before this conflict, Rome was ___. After it, Rome was ___.</li>
+        <li>A problem that the conflict caused was ___.</li>
+        <li>This conflict mattered because ___.</li>
+      </ul>
+    </div>
+
+    <h3>For the Inquiry Lab (looking through different subjects)</h3>
+    <div class="stem-list">
+      <ul>
+        <li>From a <strong>history</strong> view, the most important thing is ___.</li>
+        <li>From a <strong>civics</strong> view, the government did ___.</li>
+        <li>From an <strong>economics</strong> view, the problem was about ___.</li>
+        <li>From a <strong>geography</strong> view, the location mattered because ___.</li>
+      </ul>
+    </div>
+
+    <h3>For giving your opinion</h3>
+    <div class="stem-list">
+      <ul>
+        <li>I think ___ because ___.</li>
+        <li>One reason I believe this is ___.</li>
+        <li>Some people might say ___, but I think ___.</li>
+        <li>The best evidence for my idea is ___.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============== ORGANIZERS ============== -->
+  <section class="card" id="organizers" aria-labelledby="organizers-h">
+    <h2 id="organizers-h"><span class="num">IX.</span>Note Pages</h2>
+    <p class="section-lead">Print these pages or copy them onto paper. Use them while you read or while you talk to Socrates.</p>
+
+    <!-- Compare 3 governments -->
+    <div class="organizer">
+      <p class="organizer-title">Compare the Three Governments</p>
+      <p>For each box, write one short fact. Use the chart in "Pictures &amp; Maps" if you get stuck.</p>
+
+      <table class="compare" style="margin-top: 14px;">
+        <thead>
+          <tr>
+            <th scope="col">Question</th>
+            <th scope="col">Monarchy</th>
+            <th scope="col">Republic</th>
+            <th scope="col">Empire</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Who has the power?</th>
+            <td><div class="write-line"></div><div class="write-line"></div></td>
+            <td><div class="write-line"></div><div class="write-line"></div></td>
+            <td><div class="write-line"></div><div class="write-line"></div></td>
+          </tr>
+          <tr>
+            <th scope="row">One good thing about it</th>
+            <td><div class="write-line"></div><div class="write-line"></div></td>
+            <td><div class="write-line"></div><div class="write-line"></div></td>
+            <td><div class="write-line"></div><div class="write-line"></div></td>
+          </tr>
+          <tr>
+            <th scope="row">One bad thing about it</th>
+            <td><div class="write-line"></div><div class="write-line"></div></td>
+            <td><div class="write-line"></div><div class="write-line"></div></td>
+            <td><div class="write-line"></div><div class="write-line"></div></td>
+          </tr>
+          <tr>
+            <th scope="row">Why did it end?</th>
+            <td><div class="write-line"></div><div class="write-line"></div></td>
+            <td><div class="write-line"></div><div class="write-line"></div></td>
+            <td><div class="write-line"></div><div class="write-line"></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Socrates note page -->
+    <div class="organizer">
+      <p class="organizer-title">Talking with Socrates — Note Page</p>
+      <p>Use this when you chat with the AI Socrates on the website.</p>
+
+      <p class="organizer-prompt">What did Socrates ask you about today?</p>
+      <div class="write-box"></div>
+
+      <p class="organizer-prompt">What's one good idea you had during the chat?</p>
+      <div class="write-box"></div>
+
+      <p class="organizer-prompt">What's one new question you have now?</p>
+      <div class="write-box"></div>
+
+      <p class="organizer-prompt">One word from this unit that came up:</p>
+      <div class="write-line"></div>
+    </div>
+
+    <!-- Inquiry note page -->
+    <div class="organizer">
+      <p class="organizer-title">Inquiry Lab — Four Views Note Page</p>
+      <p>Pick one Roman problem (write it below). Then look at it through each of the four subjects.</p>
+
+      <p class="organizer-prompt">The problem I'm looking at is:</p>
+      <div class="write-box"></div>
+
+      <p class="organizer-prompt">History view (what happened?)</p>
+      <div class="write-box"></div>
+
+      <p class="organizer-prompt">Civics view (what did the government do?)</p>
+      <div class="write-box"></div>
+
+      <p class="organizer-prompt">Economics view (what about money, food, jobs?)</p>
+      <div class="write-box"></div>
+
+      <p class="organizer-prompt">Geography view (where, and how did the place matter?)</p>
+      <div class="write-box"></div>
+    </div>
+
+    <!-- Conflict cause-effect -->
+    <div class="organizer">
+      <p class="organizer-title">Conflict: Cause and Effect</p>
+      <p>Pick one conflict you read about (Punic Wars, Caesar's civil war, plebeians vs. patricians, etc.). Fill in what came before, the conflict, and what came after.</p>
+
+      <p class="organizer-prompt">The conflict:</p>
+      <div class="write-line"></div>
+
+      <p class="organizer-prompt">What was happening before? (cause)</p>
+      <div class="write-box"></div>
+
+      <p class="organizer-prompt">What happened during the conflict?</p>
+      <div class="write-box"></div>
+
+      <p class="organizer-prompt">What changed after? (effect)</p>
+      <div class="write-box"></div>
+    </div>
+  </section>
+
+  <!-- ============== SELF-CHECK ============== -->
+  <section class="card" id="self-check" aria-labelledby="check-h">
+    <h2 id="check-h"><span class="num">X.</span>Self-Check</h2>
+    <p class="section-lead">Try these questions. Use this guide if you need help. The answers are in the unit, not far away.</p>
+
+    <div class="check-q">
+      <p class="check-q-prompt">1. What are the three kinds of government Rome had, in order?</p>
+      <p class="check-q-hint">Hint: see the Big Idea or Three Stories sections.</p>
+    </div>
+
+    <div class="check-q">
+      <p class="check-q-prompt">2. What does "republic" mean?</p>
+      <p class="check-q-hint">Hint: check the Vocabulary section.</p>
+    </div>
+
+    <div class="check-q">
+      <p class="check-q-prompt">3. Why were the Twelve Tables important?</p>
+      <p class="check-q-hint">Hint: think about who could read laws before vs. after.</p>
+    </div>
+
+    <div class="check-q">
+      <p class="check-q-prompt">4. What were the Punic Wars, and who won?</p>
+      <p class="check-q-hint">Hint: see the Timeline or Story Two.</p>
+    </div>
+
+    <div class="check-q">
+      <p class="check-q-prompt">5. Name one problem the Republic had near the end.</p>
+      <p class="check-q-hint">Hint: think about rich vs. poor, or about generals with armies.</p>
+    </div>
+
+    <div class="check-q">
+      <p class="check-q-prompt">6. Who was the first Roman emperor?</p>
+      <p class="check-q-hint">Hint: he had two names — one before, one after.</p>
+    </div>
+
+    <div class="check-q">
+      <p class="check-q-prompt">7. What was the Pax Romana?</p>
+      <p class="check-q-hint">Hint: check the Timeline or the Vocabulary.</p>
+    </div>
+
+    <div class="check-q">
+      <p class="check-q-prompt">8. In your own words: why did Rome's government keep changing?</p>
+      <p class="check-q-hint">Hint: this is the Big Idea question. Look at the takeaways in each Story.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="colophon">
+  <div class="ornament" aria-hidden="true"></div>
+  <p>Ancient Rome · Unit 4 Companion Guide</p>
+  <p>A study tool. Use what helps. Ignore what doesn't.</p>
+</footer>
+
+<script>
+  // Apps Script note: <base target="_top"> is required for external links to work,
+  // but it also makes in-page anchor links (#section) try to navigate the parent
+  // window. This intercepts hash links and scrolls within the iframe instead.
+  document.addEventListener('click', function(e) {
+    var link = e.target.closest('a[href^="#"]');
+    if (!link) return;
+    var hash = link.getAttribute('href');
+    if (!hash || hash.length < 2) return;
+    var target = document.querySelector(hash);
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Move keyboard focus to the target for screen reader users.
+    if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+    target.focus({ preventScroll: true });
+  });
+</script>
+
+</body>
+</html>
